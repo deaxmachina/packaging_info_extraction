@@ -1,16 +1,16 @@
 # Admin Page
 
 https://console.cloud.google.com/iam-admin/
-Use this to set up: 
+- Use this to set up: 
 https://cloud.google.com/vision/docs/ocr
-Remember to put the full path to the json file with your API key in the environment variable *GOOGLE_APPLICATION_CREDENTIALS*. If running Jupyter Notebook/Lab, open it from the same terminal session used to set this env variable. 
+- Remember to put the full path to the json file with your API key in the environment variable *GOOGLE_APPLICATION_CREDENTIALS*. If running Jupyter Notebook/Lab, open it from the same terminal session used to set this env variable. 
 
 # Resources 
-https://cloud.google.com/vision/docs/fulltext-annotations
-https://cloud.google.com/vision/docs/ocr
-https://cloud.google.com/vision/docs/detecting-fulltext
-https://cloud.google.com/vision/docs/detecting-text#vision-text-detection-python
-https://cloud.google.com/vision/docs/quickstart-client-libraries
+- https://cloud.google.com/vision/docs/fulltext-annotations
+- https://cloud.google.com/vision/docs/ocr
+- https://cloud.google.com/vision/docs/detecting-fulltext
+- https://cloud.google.com/vision/docs/detecting-text#vision-text-detection-python
+- https://cloud.google.com/vision/docs/quickstart-client-libraries
 
 
 # Goals (in order of increasing complexity): 
@@ -29,16 +29,16 @@ https://cloud.google.com/vision/docs/quickstart-client-libraries
 
 
 # Issues
-[1] Using block detection with the Vision API out of the box doesn't detect columns well and groups together things which are supposed to be in different blocks.
-[2] It's not perfect with numbers and this can be a problem with the nutrition info; sometimes it separates just a few numbers from the rest of the block or paragraph  and sometimes it doesn't even detect them correctly e.g. the letter 'g' or '.' 
-[3] Even with block and paragraph detection, sometimes it picks up small individual blocks of e.g. just one number or word and this gets taken out of the bigger block that encloses it.
-[4] Lots of packages are round or the photos are distorted and when that happens it's not good at putting proper boxes around groups of text and this instead gets chopped into really bad boxes; or the text is not extracted very well. 
-[5] For ingredients: depending on the layout sometimes it doesn't detect the word 'ingredients' together with the actual ingredient list, or splits the ingredients in two or more blocks; or puts more stuff into the box that contains the ingredients. 
-[6] Sometimes the word 'ingredients' doesn't get fully detected esp when the package is distorted. 
-[7] For the nutrition: A lot of issues in correctly extracting this information. 
-[8] Sometimes the word 'ingredients' is contained elsewhere in the text and not with the actual ingredients list. 
-[9] Sometimes ingredients are not neatly separated by commas or there is no fullstop at the end. 
-[10] Even when we successully extract the ingredients list, there are issues such as text in brackets separated over multiple lines being split or unconventional formatting.
+- [1] Using block detection with the Vision API out of the box doesn't detect columns well and groups together things which are supposed to be in different blocks.
+- [2] It's not perfect with numbers and this can be a problem with the nutrition info; sometimes it separates just a few numbers from the rest of the block or paragraph  and sometimes it doesn't even detect them correctly e.g. the letter 'g' or '.' 
+- [3] Even with block and paragraph detection, sometimes it picks up small individual blocks of e.g. just one number or word and this gets taken out of the bigger block that encloses it.
+- [4] Lots of packages are round or the photos are distorted and when that happens it's not good at putting proper boxes around groups of text and this instead gets chopped into really bad boxes; or the text is not extracted very well. 
+- [5] For ingredients: depending on the layout sometimes it doesn't detect the word 'ingredients' together with the actual ingredient list, or splits the ingredients in two or more blocks; or puts more stuff into the box that contains the ingredients. 
+- [6] Sometimes the word 'ingredients' doesn't get fully detected esp when the package is distorted. 
+- [7] For the nutrition: A lot of issues in correctly extracting this information. 
+- [8] Sometimes the word 'ingredients' is contained elsewhere in the text and not with the actual ingredients list. 
+- [9] Sometimes ingredients are not neatly separated by commas or there is no fullstop at the end. 
+- [10] Even when we successully extract the ingredients list, there are issues such as text in brackets separated over multiple lines being split or unconventional formatting.
 
 
 # Solutions
