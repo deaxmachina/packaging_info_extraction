@@ -1,11 +1,7 @@
-# Admin Page
+# Detailed Project Notes
 
-https://console.cloud.google.com/iam-admin/
-- Use this to set up: 
-https://cloud.google.com/vision/docs/ocr
-- Remember to put the full path to the json file with your API key in the environment variable *GOOGLE_APPLICATION_CREDENTIALS*. If running Jupyter Notebook/Lab, open it from the same terminal session used to set this env variable. 
 
-# Resources 
+## Resources 
 - https://cloud.google.com/vision/docs/fulltext-annotations
 - https://cloud.google.com/vision/docs/ocr
 - https://cloud.google.com/vision/docs/detecting-fulltext
@@ -13,14 +9,14 @@ https://cloud.google.com/vision/docs/ocr
 - https://cloud.google.com/vision/docs/quickstart-client-libraries
 
 
-# Goals (in order of increasing complexity): 
+## Goals (in order of increasing complexity): 
 1. Extract the ingredients in one block of text given a photo of just the ingredients or of just the ingredients and a very small area of the packaging around them. 
 2. Extract the ingredients in one block given a photo of the whole side of the packaging (quite difficult!) 
 3. Extract various logos showing product certifications etc. Note that this can be done as an object detection task on all of them at the same time and can be done with video in real time (tf object detection supports video). 
 
 
 
-# OCR on the whole package 
+## OCR on the whole package 
 - We first try to use the Google Vision API (both the text and document detection options) to segment the text from the whole side of the package. The hope is that this provides a good segmentation and from there we can extract the blocks we need (i.e. ingredients and nutrition) easily, e.g. by keyword search for 'ingredients' and 'nutrition' in the various blocks. 
 - Experimenting with various package designs shows that the out-of-the-box Google Vision API (document, as this one is better) doesn't capture a lot of the cases well. For example, it thinks that pargraphs are supposed to be horizontal and groups horizontal text together even when the left and right hand side of it come from different columns. Conclusion is that this is too crude to be useful out-of-the-box. 
 - We might need to go back to first principles and group words together based on the distance between their bounding boxes in all directions, rather than relying on the paragraph-level segmentation that comes out of the API. 
@@ -28,7 +24,7 @@ https://cloud.google.com/vision/docs/ocr
 - See various attempts and comments in the OCR_packaging_workbook notebook. 
 
 
-# Issues
+## Issues
 - [1] Using block detection with the Vision API out of the box doesn't detect columns well and groups together things which are supposed to be in different blocks.
 - [2] It's not perfect with numbers and this can be a problem with the nutrition info; sometimes it separates just a few numbers from the rest of the block or paragraph  and sometimes it doesn't even detect them correctly e.g. the letter 'g' or '.' 
 - [3] Even with block and paragraph detection, sometimes it picks up small individual blocks of e.g. just one number or word and this gets taken out of the bigger block that encloses it.
@@ -41,7 +37,7 @@ https://cloud.google.com/vision/docs/ocr
 - [10] Even when we successully extract the ingredients list, there are issues such as text in brackets separated over multiple lines being split or unconventional formatting.
 
 
-# Solutions
+## Solutions
 
 Solution 1
 - *Defintion*: Instead of using the block and document functionality of the API, use just the words and their bounding boxes and group them together based on distances. 
